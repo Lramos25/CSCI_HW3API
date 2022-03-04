@@ -151,7 +151,7 @@ router.post('/signin', function (req, res) {
 
 
 router.route('/movies')
-    .get(authController.isAuthenticated, function(req, res) {
+    .get(function(req, res) {
             console.log(req.body);
             res = res.status(200);
 
@@ -165,7 +165,7 @@ router.route('/movies')
 
 
 router.route('/movies')
-    .post(authController.isAuthenticated, function(req, res) {
+    .post(function(req, res) {
             console.log(req.body);
             res = res.status(200);
             if (req.get('Content-Type')) {
@@ -178,7 +178,7 @@ router.route('/movies')
 
 
 router.route('/movies')
-    .put(authController.isAuthenticated, function(req, res) {
+    .put(authJwtController.isAuthenticated, function(req, res) {
             console.log(req.body);
             res = res.status(200);
             if (req.get('Content-Type')) {
