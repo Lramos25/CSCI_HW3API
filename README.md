@@ -65,4 +65,13 @@
 
 ![git issues](https://user-images.githubusercontent.com/10605443/155821345-7da21722-017d-42ae-afea-76dd734c5743.png)
 
+##  -------------------------------------------------------------------------------------------------------- 
 
+## **Heroku deplyment:**
+
+![Heroku deploy](https://user-images.githubusercontent.com/10605443/156805335-1347d7b1-a34a-4635-ad9b-9c87459b21e7.png)
+
+
+## **Heroku logs show status from start up to crash:**
+
+![Heroku logs](https://user-images.githubusercontent.com/10605443/156805339-d02651fb-61a6-4523-a01c-7d41f6ab1a1a.png)
