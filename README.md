@@ -42,10 +42,11 @@
 ## **PostMovie Success:**
 ![Post mives success](https://user-images.githubusercontent.com/10605443/155859201-01c7fbc9-b85c-495d-8cdd-80ad2928e257.png)
 
+## PutMovie fail with incorrect token
+![put fail](https://user-images.githubusercontent.com/10605443/156787002-fa75b292-c535-4932-92c2-059c4d21abe6.png)
 
-## **PutMovie should success with token but Fails:**
-![Put movies success that fails _ see token same as produced by sign in](https://user-images.githubusercontent.com/10605443/155859202-0679566e-0294-4a35-88ab-f118084d5958.png)
-
+## PutMovie success with token
+![put success](https://user-images.githubusercontent.com/10605443/156787000-325341cf-4762-4d55-a441-45be5b19130f.png)
 
 ## **DeleteMovie Fail:**
 ![delete movies fail](https://user-images.githubusercontent.com/10605443/155859203-8a60ffdd-6204-4b2f-8b56-e9392bc698b3.png)
