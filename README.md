@@ -75,3 +75,16 @@
 ## **Heroku logs show status from start up to crash:**
 
 ![Heroku logs](https://user-images.githubusercontent.com/10605443/156805339-d02651fb-61a6-4523-a01c-7d41f6ab1a1a.png)
+
+
+## **503 error in postman when deployed to heroku:**
+
+![Postman 503](https://user-images.githubusercontent.com/10605443/156940523-a522eaf9-af65-4128-800b-ffd17d9b1e98.png)
+
+## **Heroku deloyed:**
+
+![Heroku3_settings_domain](https://user-images.githubusercontent.com/10605443/156940524-19bf7703-006c-4641-901f-50a2a655b228.png)
+
+![Heroku1](https://user-images.githubusercontent.com/10605443/156940525-2d79a78e-b942-4fd7-91b6-85d8e0a5f220.png)
+
+![Heroku2](https://user-images.githubusercontent.com/10605443/156940526-45440c48-0191-44fc-baaa-64d7d31b02f3.png)
