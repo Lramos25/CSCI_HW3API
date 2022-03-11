@@ -21,7 +21,7 @@
   "homepage": "https://github.com/Lramos25/CSC_3619HW2#readme",
   "dependencies": {
     "auth": "^0.0.9",
-    
+    "auth0-js": "^9.19.0",
     "body-parser": "^1.19.2",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
