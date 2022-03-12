@@ -3,6 +3,7 @@ CSC3916 HW2 server.js
 second attempt after first became HW1...don't know what happened
 Desc: Web API scaffolding for movie API
 */
+
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
@@ -22,6 +23,8 @@ app.use(passport.initialize());
 
 var router = express.Router();
 
+
+
 function getJSONObjectForMovieRequirement(req) {
     var json = {
         headers: "No headers",
@@ -39,6 +42,8 @@ function getJSONObjectForMovieRequirement(req) {
 
     return json;
 }
+
+
 
 function getMoviesJSONObjectForMovieRequirement(req) {
     var json = {
@@ -60,6 +65,7 @@ function getMoviesJSONObjectForMovieRequirement(req) {
 }
 
 
+
 function saveMoviesJSONObjectForMovieRequirement(req) {
     var json = {
         headers: "No headers",
@@ -78,6 +84,8 @@ function saveMoviesJSONObjectForMovieRequirement(req) {
 
     return json;
 }
+
+
 
 function updatedMoviesJSONObjectForMovieRequirement(req) {
     var json = {
@@ -98,6 +106,8 @@ function updatedMoviesJSONObjectForMovieRequirement(req) {
     return json;
 }
 
+
+
 function deleteMoviesJSONObjectForMovieRequirement(req) {
     var json = {
         headers: "No headers",
@@ -117,6 +127,8 @@ function deleteMoviesJSONObjectForMovieRequirement(req) {
     return json;
 }
 
+
+
 router.post('/signup', function(req, res) {
     if (!req.body.username || !req.body.password) {
         res.json({success: false, msg: 'Please include both username and password to signup.'})
@@ -130,6 +142,8 @@ router.post('/signup', function(req, res) {
         res.json({success: true, msg: 'Successfully created new user.'})
     }
 });
+
+
 
 router.post('/signin', function (req, res) {
     var user = db.findOne(req.body.username);
@@ -151,10 +165,9 @@ router.post('/signin', function (req, res) {
 
 
 router.route('/movies')
-    .get(function(req, res) {
+    .get(authController.isAuthenticated, function(req, res) {
             console.log(req.body);
             res = res.status(200);
-
             if (req.get('Content-Type')) {
                 res = res.type(req.get('Content-Type'));
             }
@@ -164,8 +177,9 @@ router.route('/movies')
     )
 
 
+
 router.route('/movies')
-    .post(function(req, res) {
+    .post(authController.isAuthenticated, function(req, res) {
             console.log(req.body);
             res = res.status(200);
             if (req.get('Content-Type')) {
@@ -175,6 +189,8 @@ router.route('/movies')
             res.json(o);
         }
     )
+
+
 
 
 router.route('/movies')
@@ -188,6 +204,7 @@ router.route('/movies')
             res.json(o);
         }
     )
+
 
 
 router.route('/movies')
@@ -215,6 +232,10 @@ router.route('/movies')
         }
     );
 
+
 app.use('/', router);
-app.listen(process.env.PORT || 8008);
+
+app.listen(process.env.PORT || 8080);
+
 module.exports = app; // for testing only
+
