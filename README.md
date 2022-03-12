@@ -60,7 +60,8 @@
 
 
 ## **Request(PATCH) Fail:**
-![request fail](https://user-images.githubusercontent.com/10605443/155859206-085c83f6-36fe-489e-b8ec-1612bb830aab.png)
+![patch method](https://user-images.githubusercontent.com/10605443/157998072-12b6a8f1-59b3-4c57-8d6c-558dbb96f6cd.png)
+
 
 
 
