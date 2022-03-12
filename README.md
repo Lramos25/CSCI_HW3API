@@ -4,89 +4,63 @@
 
 
 
-## **503 error in postman when deployed to heroku:**
-
-![Postman 503](https://user-images.githubusercontent.com/10605443/156940523-a522eaf9-af65-4128-800b-ffd17d9b1e98.png)
-
-
-## **Heroku deployment:**
-
-![Heroku deploy](https://user-images.githubusercontent.com/10605443/156805335-1347d7b1-a34a-4635-ad9b-9c87459b21e7.png)
-
-
-## **Heroku logs show status from start up to crash:**
-
-![Heroku logs](https://user-images.githubusercontent.com/10605443/156805339-d02651fb-61a6-4523-a01c-7d41f6ab1a1a.png)
-
-
-## **Heroku domain to use:**
-
-![Heroku3_settings_domain](https://user-images.githubusercontent.com/10605443/156940524-19bf7703-006c-4641-901f-50a2a655b228.png)
-
-# **Working on localhost:*
+# **Working 100%:*
 
 ## **Signup Fail:**
-![signup fail](https://user-images.githubusercontent.com/10605443/155859191-1d54d9de-0a08-4bed-ab1e-61cd2d65b94d.png)
+![signup fail](https://user-images.githubusercontent.com/10605443/157997828-c785155e-5830-4389-b598-4710ba5001a7.png)
 
 
 ## **Signup Success:**
-![signup success](https://user-images.githubusercontent.com/10605443/155859192-e8c1403d-6bff-4261-ac29-0d498a267435.png)
+![signup good](https://user-images.githubusercontent.com/10605443/157997827-81d47673-7887-48e3-8761-997a3ab8eada.png)
 
 
 ## **Login Fail username:**
-![signin Fail username](https://user-images.githubusercontent.com/10605443/155859194-69d22d1d-1e2b-448f-8377-c0465bd00200.png)
+![signin fail username](https://user-images.githubusercontent.com/10605443/157997831-b8eaf727-e0d7-4d9b-be00-904786606e68.png)
 
 
 ## **Login Fail password:**
-![signin Fail password](https://user-images.githubusercontent.com/10605443/155859193-f5c4baa2-5c5a-4edc-94d0-1b0898c1790a.png)
+![signin fail password](https://user-images.githubusercontent.com/10605443/157997830-a36f3c94-381b-40b5-80c0-bf506c235a24.png)
 
 
 ## **Login Fail request type:**
-![sign in fail with request wrong](https://user-images.githubusercontent.com/10605443/155859195-bf73cc18-f825-4324-93b2-c434d62742d0.png)
+![signin fail method](https://user-images.githubusercontent.com/10605443/157997832-a2c92a59-e37b-48b2-abbe-35fd4ae029bf.png)
 
 
 ## **Login Success:**
-![signin success](https://user-images.githubusercontent.com/10605443/155859197-4183ffa2-b59c-4275-9ced-8e69336b4303.png)
+![signin good](https://user-images.githubusercontent.com/10605443/157997829-954e0c70-f522-485e-9c22-55947e4dc36d.png)
 
 
 ## **GetMovie Fail:**
-![get movies fail](https://user-images.githubusercontent.com/10605443/155859198-f6797fd6-53c0-41f8-9878-512169eb6776.png)
+![get movie fail](https://user-images.githubusercontent.com/10605443/157997835-45b5dad4-ce76-4483-8dab-0bbe6d86c0dd.png)
 
 
 ## **GetMovie Success:**
-![get movies success](https://user-images.githubusercontent.com/10605443/155859199-f9c3e2b3-10b8-4b64-bcce-916003402feb.png)
+![get movie good](https://user-images.githubusercontent.com/10605443/157997833-ada3130b-4ad2-4f8c-b1d9-a1dc1b95f79f.png)
 
 
 ## **PostMovie Fail:**
-![post movies fail](https://user-images.githubusercontent.com/10605443/155859200-0406c6af-09ed-42a6-ae22-f8fab0629d72.png)
+![post movie fail](https://user-images.githubusercontent.com/10605443/157997837-462ae470-5348-4616-b165-e8c0a7998ed9.png)
 
 
 ## **PostMovie Success:**
-![Post mives success](https://user-images.githubusercontent.com/10605443/155859201-01c7fbc9-b85c-495d-8cdd-80ad2928e257.png)
+![post movie good](https://user-images.githubusercontent.com/10605443/157997836-f676dff0-b02e-480d-a718-f6544785f093.png)
 
 ## PutMovie fail with incorrect token
-![put fail](https://user-images.githubusercontent.com/10605443/156787002-fa75b292-c535-4932-92c2-059c4d21abe6.png)
+![put movie fail](https://user-images.githubusercontent.com/10605443/157997841-f24d7a11-8080-488a-af93-1bbd56bea612.png)
 
 ## PutMovie success with token
-![put success](https://user-images.githubusercontent.com/10605443/156787000-325341cf-4762-4d55-a441-45be5b19130f.png)
+![put movie good](https://user-images.githubusercontent.com/10605443/157997839-68dabf4d-ba41-4fe0-9499-3a17cd508774.png)
 
 ## **DeleteMovie Fail:**
-![delete movies fail](https://user-images.githubusercontent.com/10605443/155859203-8a60ffdd-6204-4b2f-8b56-e9392bc698b3.png)
+![delete movie fail](https://user-images.githubusercontent.com/10605443/157997843-19b9ec5f-a6ca-407d-9057-8975ad50fec0.png)
 
 
 ## **DeleteMovie Success:**
-![delete movies success](https://user-images.githubusercontent.com/10605443/155859204-1bdb8239-db7b-417b-ae2a-57a1283013a5.png)
+![delete movie good](https://user-images.githubusercontent.com/10605443/157997842-fa13aacd-f006-4433-b857-d7a85b930b02.png)
 
 
 ## **Request(PATCH) Fail:**
 ![request fail](https://user-images.githubusercontent.com/10605443/155859206-085c83f6-36fe-489e-b8ec-1612bb830aab.png)
 
 
-##  -------------------------------------------------------------------------------------------------------- 
-
-## **Issue Putting folders into Git:**
-
-![git issues](https://user-images.githubusercontent.com/10605443/155821345-7da21722-017d-42ae-afea-76dd734c5743.png)
-
-##  -------------------------------------------------------------------------------------------------------- 
 
