@@ -1,35 +1,32 @@
 /*
 CSC3916 HW2 server.js
-second attempt after first became HW1...don't know what happened
+
 Desc: Web API scaffolding for movie API
 */
-
 var express = require('express');
-var http = require('http');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var authController = require('./auth');
 var authJwtController = require('./auth_jwt');
-db = require('./db')(); //hack
 var jwt = require('jsonwebtoken');
 var cors = require('cors');
+var User = require('./Users');
+var Movies = require('./Movies');
 
 var app = express();
 app.use(cors());
-app.use(bodyParser.json()); //so we don't need to use json.parser every time in body
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false}));
 
 app.use(passport.initialize());
 
 var router = express.Router();
 
-
-
 function getJSONObjectForMovieRequirement(req) {
     var json = {
-        headers: "No headers",
+        headers: "No Headers",
         key: process.env.UNIQUE_KEY,
-        body: "No body",
+        body: "No Body",
     };
 
     if (req.body != null) {
@@ -44,193 +41,114 @@ function getJSONObjectForMovieRequirement(req) {
 }
 
 
-
-function getMoviesJSONObjectForMovieRequirement(req) {
-    var json = {
-        headers: "No headers",
-        key: process.env.UNIQUE_KEY,
-        body: "No body",
-        msg: "GET movies"
-    };
-
-    if (req.body != null) {
-        json.body = req.body;
-    }
-
-    if (req.headers != null) {
-        json.headers = req.headers;
-    }
-
-    return json;
-}
-
-
-
-function saveMoviesJSONObjectForMovieRequirement(req) {
-    var json = {
-        headers: "No headers",
-        key: process.env.UNIQUE_KEY,
-        body: "No body",
-        msg: "Saved movies"
-    };
-
-    if (req.body != null) {
-        json.body = req.body;
-    }
-
-    if (req.headers != null) {
-        json.headers = req.headers;
-    }
-
-    return json;
-}
-
-
-
-function updatedMoviesJSONObjectForMovieRequirement(req) {
-    var json = {
-        headers: "No headers",
-        key: process.env.UNIQUE_KEY,
-        body: "No body",
-        msg: "Updated movies"
-    };
-
-    if (req.body != null) {
-        json.body = req.body;
-    }
-
-    if (req.headers != null) {
-        json.headers = req.headers;
-    }
-
-    return json;
-}
-
-
-
-function deleteMoviesJSONObjectForMovieRequirement(req) {
-    var json = {
-        headers: "No headers",
-        key: process.env.UNIQUE_KEY,
-        body: "No body",
-        msg: "Movie deleted"
-    };
-
-    if (req.body != null) {
-        json.body = req.body;
-    }
-
-    if (req.headers != null) {
-        json.headers = req.headers;
-    }
-
-    return json;
-}
-
-
-
-router.post('/signup', function(req, res) {
+router.post('/signup', function (req, res) {
     if (!req.body.username || !req.body.password) {
-        res.json({success: false, msg: 'Please include both username and password to signup.'})
+        res.json({success: false, msg: 'Please include username and password.'})
     } else {
-        var newUser = {
-            username: req.body.username,
-            password: req.body.password
-        };
+        var user = new User();
+        user.name = req.body.name;
+        user.username = req.body.username;
+        user.password = req.body.password;
 
-        db.save(newUser); //no duplicate checking
-        res.json({success: true, msg: 'Successfully created new user.'})
+        user.save(function(err){
+            if (err) {
+                if (err.code == 11000)
+                    return res.json({success: false, message: 'user already exists.'});
+                else
+                    return res.json(err);
+            }
+
+            res.json({success: true, msg: 'Successfull.'})
+        });
     }
 });
-
-
 
 router.post('/signin', function (req, res) {
-    var user = db.findOne(req.body.username);
+    var userNew = new User();
+    userNew.username = req.body.username;
+    userNew.password = req.body.password;
 
-    if (!user) {
-        res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
-    } else {
-        if (req.body.password == user.password) {
-            var userToken = { id: user.id, username: user.username };
-            var token = jwt.sign(userToken, process.env.SECRET_KEY);
-            res.json ({success: true, token: 'JWT ' + token});
+    User.findOne({ username: userNew.username }).select('name username password').exec(function(err, user) {
+        if (err) {
+            res.send(err);
         }
-        else {
-            res.status(401).send({success: false, msg: 'Authentication PW failed.'});
-        }
-    }
+
+        user.comparePassword(userNew.password, function(isMatch) {
+            if (isMatch) {
+                var userToken = { id: user.id, username: user.username };
+                var token = jwt.sign(userToken, process.env.SECRET_KEY);
+                res.json ({success: true, token: 'JWT ' + token});
+            }
+            else {
+                res.status(401).send({success: false, msg: 'Authentication failed.'});
+            }
+        })
+    })
 });
 
-
-
 router.route('/movies')
-    .get(authController.isAuthenticated, function(req, res) {
-            console.log(req.body);
-            res = res.status(200);
-            if (req.get('Content-Type')) {
-                res = res.type(req.get('Content-Type'));
+    .get(authJwtController.isAuthenticated, function(req, res){
+
+        Movies.findOne( {title: req.body.message}).select('title releaseYear genre actors').exec(function (err, movie) {
+            if (err) {
+                res.send(err)
             }
-            var o = getMoviesJSONObjectForMovieRequirement(req);
-            res.json(o);
-        }
-    )
-
-
-
-router.route('/movies')
-    .post(authController.isAuthenticated, function(req, res) {
-            console.log(req.body);
-            res = res.status(200);
-            if (req.get('Content-Type')) {
-                res = res.type(req.get('Content-Type'));
+            let resMovie = {
+                title: movie.title,
+                releaseYear: movie.releaseYear,
+                genre: movie.genre,
+                actors: movie.actors
             }
-            var o = saveMoviesJSONObjectForMovieRequirement(req);
-            res.json(o);
+            res.json(resMovie);
+        })
+    })
+    .post(authJwtController.isAuthenticated, function (req,res){
+        switch (req) {
+            case !req.body.title:
+                return res.json({success: false, message: 'title of the movie'});
+            case !req.body.releaseYear:
+                return res.json({success: false, message: 'release year'});
+            case !req.body.genre:
+                return res.json({success: false, message: 'genre.'});
+            case req.body.actors.length < 3:
+                return res.json({success: false, message: '3 actors.'});
+            default:
+                var movieNew = new Movies();
+                movieNew.title = req.body.title;
+                movieNew.releaseYear = req.body.releaseYear;
+                movieNew.genre = req.body.genre;
+                movieNew.actors = req.body.actors;
+                movieNew.save(function (err){
+                    if (err) {
+                        if (err.code == 11000)
+                            return res.json({success: false, message: 'Username already exists.'});
+                        else
+                            return res.json(err);
+                    }
+                    res.send({status: 200, message: "saved", headers: req.headers, query: req.query, env: process.env.UNIQUE_KEY});
+                });
         }
-    )
 
+    })
+    .put(authJwtController.isAuthenticated, function (req,res){
 
+        Movies.findOneAndUpdate({title: req.body.title}, {releaseYear: req.body.releaseYear}).exec(function (err, movie) {
+            if (err)
+                res.send(err)
+            else
+                res.json( {status: 200, message: "updated year", new_releaseYear: req.body.releaseYear})
+        });
+    })
+    .delete(authJwtController.isAuthenticated, function(req, res) {
 
+        Movies.findOneAndDelete( {title: req.body.title}).exec(function (err, movie) {
+            if (err)
+                res.send(err)
+            else
+                res.json( {status: 200, message: "deleted", deleted_movie: req.body.title})
+        });
+    });
 
-router.route('/movies')
-    .put(authJwtController.isAuthenticated, function(req, res) {
-            console.log(req.body);
-            res = res.status(200);
-            if (req.get('Content-Type')) {
-                res = res.type(req.get('Content-Type'));
-            }
-            var o = updatedMoviesJSONObjectForMovieRequirement(req);
-            res.json(o);
-        }
-    )
-
-
-
-router.route('/movies')
-    .delete(authController.isAuthenticated, function(req, res) {
-            console.log(req.body);
-            res = res.status(200);
-            if (req.get('Content-Type')) {
-                res = res.type(req.get('Content-Type'));
-            }
-            var o = deleteMoviesJSONObjectForMovieRequirement(req);
-            res.json(o);
-        }
-    )
-
-
-
-    .put(authJwtController.isAuthenticated, function(req, res) {
-            console.log(req.body);
-            res = res.status(200);
-            if (req.get('Content-Type')) {
-                res = res.type(req.get('Content-Type'));
-            }
-            var o = getJSONObjectForMovieRequirement(req);
-            res.json(o);
-        }
-    );
 
 
 app.use('/', router);
