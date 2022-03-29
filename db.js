@@ -36,7 +36,7 @@ module.exports = function () {
             }
         },
         /*
-         * Delete a movie with the given id.
+         * Delete
          */
         remove: function (id) {
             var found = 0;
@@ -51,7 +51,7 @@ module.exports = function () {
             return found;
         },
         /*
-         * Update a movie with the given id
+         * Update
          */
         update: function (id, user) {
             var userIndex = this.userList.findIndex(function (element) {
