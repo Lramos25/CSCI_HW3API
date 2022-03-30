@@ -4,7 +4,11 @@
   "description": "Web API 3916 HW2",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 10000 --exit",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+
   },
   "repository": {
     "type": "git",
@@ -22,6 +26,7 @@
   "dependencies": {
     "auth": "^0.0.9",
     "auth0-js": "^9.19.0",
+    "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.19.2",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
@@ -29,8 +34,14 @@
     "express": "^4.17.3",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.9",
     "passport": "^0.5.2",
     "passport-http": "^0.3.0",
     "passport-jwt": "^4.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.3.0"
   }
 }
