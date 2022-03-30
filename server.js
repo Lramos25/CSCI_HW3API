@@ -1,6 +1,5 @@
 /*
 CSC3916 HW2 server.js
-
 Desc: Web API scaffolding for movie API
 */
 var express = require('express');
