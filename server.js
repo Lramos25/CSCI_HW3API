@@ -85,7 +85,7 @@ router.post('/signin', function (req, res) {
     })
 });
 
-router.route('/movies')
+router.route('/movies') //I think this might be where my issue is. Maybe I need each of these to be done individual 
     .get(authJwtController.isAuthenticated, function(req, res){
 
         Movies.findOne( {title: req.body.message}).select('title releaseYear genre actors').exec(function (err, movie) {
