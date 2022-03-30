@@ -3,12 +3,8 @@
   "version": "1.0.0",
   "description": "Web API 3916 HW2",
   "main": "server.js",
-    "engines": {
-    "node": "16.13.2"
-  },
   "scripts": {
-    "test": "mocha --timeout 10000 --exit",
-    "start": "node server.js"
+    "test": "mocha --timeout 10000 --exit"
   },
   "repository": {
     "type": "git",
