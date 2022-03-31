@@ -85,8 +85,8 @@ router.post('/signin', function (req, res) {
     })
 });
 
-
-router.get('/movies', function(req, res){
+router.route('/movies') //I think this might be where my issue is. Maybe I need each of these to be seperate
+    .get(authJwtController.isAuthenticated, function(req, res){
 
         Movies.findOne( {title: req.body.message}).select('title releaseYear genre actors').exec(function (err, movie) {
             if (err) {
@@ -100,9 +100,8 @@ router.get('/movies', function(req, res){
             }
             res.json(resMovie);
         })
-    });
-    
-router.post('/movies', function(req, res){
+    })
+    .post(authJwtController.isAuthenticated, function (req,res){
         switch (req) {
             case !req.body.title:
                 return res.json({success: false, message: 'title of the movie'});
@@ -129,9 +128,8 @@ router.post('/movies', function(req, res){
                 });
         }
 
-    });
-
-router.put('/movies', function(req, res){
+    })
+    .put(authJwtController.isAuthenticated, function (req,res){
 
         Movies.findOneAndUpdate({title: req.body.title}, {releaseYear: req.body.releaseYear}).exec(function (err, movie) {
             if (err)
