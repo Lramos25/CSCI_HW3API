@@ -85,24 +85,77 @@ router.post('/signin', function (req, res) {
     })
 });
 
-router.post('/movies', function (reg, res) {
-    var movie = new Movies();
-    movie.title = req.body.title;
-    movie.releaseYear = req.body.releaseYear;
-    movie.genre = req.body.genre;
-    movie.actors = req.body.actors;
 
-    movie.save(function(err){
-        if (err) {
-            if (err.code == 11000)
-                return res.json({success: false, message: 'movie already exists.'});
-            else
-                return res.json(err);
+router.route('/movies') //I think this might be where my issue is. Maybe I need each of these to be seperate
+    .get(authJwtController.isAuthenticated, function(req, res){
+
+        //get movie
+        Movies.findOne( {title: req.body.message}).select('title releaseYear genre actors').exec(function (err, movie) {
+            if (err) {
+                res.send(err)
+            }
+            let resMovie = {
+                title: movie.title,
+                releaseYear: movie.releaseYear,
+                genre: movie.genre,
+                actors: movie.actors
+            }
+            res.json(resMovie);
+        })
+    })
+
+    //save new movie
+    .post(authJwtController.isAuthenticated, function (req,res){
+        switch (req) {
+            case !req.body.title:
+                return res.json({success: false, message: 'title of the movie'});
+            case !req.body.releaseYear:
+                return res.json({success: false, message: 'release year'});
+            case !req.body.genre:
+                return res.json({success: false, message: 'genre.'});
+            case req.body.actors.length < 3:
+                return res.json({success: false, message: '3 actors.'});
+            default:
+                var movieNew = new Movies();
+                movieNew.title = req.body.title;
+                movieNew.releaseYear = req.body.releaseYear;
+                movieNew.genre = req.body.genre;
+                movieNew.actors = req.body.actors;
+                movieNew.save(function (err){
+                    if (err) {
+                        if (err.code == 11000)
+                            return res.json({success: false, message: 'Movie already exists.'});
+                        else
+                            return res.json(err);
+                    }
+                    res.send({status: 200, message: "movie saved", headers: req.headers, query: req.query, env: process.env.UNIQUE_KEY});
+                });
         }
 
-        res.json({success: true, msg: 'movie saved.'})
+    })
+
+    //update movie yyyy
+    .put(authJwtController.isAuthenticated, function (req,res){
+
+        Movies.findOneAndUpdate({title: req.body.title}, {releaseYear: req.body.releaseYear}).exec(function (err, movie) {
+            if (err)
+                res.send(err)
+            else
+                res.json( {status: 200, message: "updated year", new_releaseYear: req.body.releaseYear})
+        });
+    })
+
+    // delete movie
+    .delete(authJwtController.isAuthenticated, function(req, res) {
+
+        Movies.findOneAndDelete( {title: req.body.title}).exec(function (err, movie) {
+            if (err)
+                res.send(err)
+            else
+                res.json( {status: 200, message: "deleted", deleted_movie: req.body.title})
+        });
     });
-})
+
 
 
 app.use('/', router);
