@@ -18,6 +18,20 @@ var MoviesSchema = new Schema({
     title: { type: String, required: true, index: { unique: true }},
     releaseYear: { type: String, required: true},
     genre: { type: String, required: true},
-    actors: {type: Array, required: true}
+    actors: [{actorName: String, characterName: string, required: true}]
 });
+
+/*
+MoviesSchema.pre('save', function(next) {
+    var movie = this;
+
+    if (movie.actors.length < 3)
+        return res.json({success: false, message: '3 actors.'}); //not sure what the issue is here
+
+        next();
+
+});
+*/
+
+
 module.exports = mongoose.model('Movies', MoviesSchema);
