@@ -4,7 +4,7 @@
 
 # Note: #
 
-Foloowing along with the methods from the class videos I am able to get the users working fine but not movies. When i build my own API with a different method, I can get the movies to work, register and log in but I ran into issues with the token and verification of passwords - would log the user in even with incorrect password.
+Following along with the methods from the class videos I am able to get the users working fine but not movies. When i build my own API with a different method, I can get the movies to work, register and log in but I ran into issues with the token and verification of passwords - would log the user in even with incorrect password.
 What I did for the final submission is built two different Heroku connections and just used what worked from both. The work from the class videos links to csc-hw3-api
 and the new work for the movies management is linked to csc-hw3-api-movie in Heroku. 
 
