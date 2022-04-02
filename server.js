@@ -86,7 +86,7 @@ router.post('/signin', function (req, res) {
 });
 
 
-router.route('/movies') //I think this might be where my issue is. Maybe I need each of these to be seperate
+router.route('/movies') 
     .get(authJwtController.isAuthenticated, function(req, res){
 
         //get movie
@@ -107,20 +107,6 @@ router.route('/movies') //I think this might be where my issue is. Maybe I need 
     //save new movie
     .post(authJwtController.isAuthenticated, function (req,res){
 
-        if (!req.body.title || !req.body.releaseYear || !req.body.genre) {
-            res.json({success: false, msg: 'Please include all data.'})
-        } else if (req.body.actors.length < 3) {
-            res.json({success: false, msg: 'Please include at least three actors.'})
-        } else {
-            var movieNew = new Movies();
-            movieNew.title = req.body.title;
-            movieNew.releaseYear = req.body.releaseYear;
-            movieNew.genre = req.body.genre;
-            movieNew.actors = req.body.actors;
-            res.send({status: 200, message: "movie saved", headers: req.headers, query: req.query});
-        }
-
-        /*
         switch (req) {
             case !req.body.title:
                 return res.json({success: false, message: 'title of the movie'});
@@ -146,7 +132,19 @@ router.route('/movies') //I think this might be where my issue is. Maybe I need 
                     res.send({status: 200, message: "movie saved", headers: req.headers, query: req.query, env: process.env.UNIQUE_KEY});
                 });
         }
-
+        /*
+                if (!req.body.title || !req.body.releaseYear || !req.body.genre) {
+            res.json({success: false, msg: 'Please include all data.'})
+        } else if (req.body.actors.length < 3) {
+            res.json({success: false, msg: 'Please include at least three actors.'})
+        } else {
+            var movieNew = new Movies();
+            movieNew.title = req.body.title;
+            movieNew.releaseYear = req.body.releaseYear;
+            movieNew.genre = req.body.genre;
+            movieNew.actors = req.body.actors;
+            res.send({status: 200, message: "movie saved", headers: req.headers, query: req.query});
+        }
          */
 
     })
