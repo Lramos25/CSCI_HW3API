@@ -11,7 +11,7 @@ try
 {
     console.log("could not connect");
 }
-mongoose.set('useCreateIndex', true);
+//mongoose.set('useCreateIndex', true);
 
 //movies schema
 let MovieSchema = new Schema({
