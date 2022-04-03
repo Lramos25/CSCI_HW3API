@@ -1,17 +1,18 @@
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
-
+require("dotenv").config()
 mongoose.Promise = global.Promise;
 
-
+//mongoose.connect(process.env.DB, { useNewUrlParser: true });
 try {
     mongoose.connect( process.env.DB, {useNewUrlParser: true, useUnifiedTopology: true}, () =>
         console.log("connected"));
 }catch (error) {
     console.log("could not connect");
 }
-//mongoose.set('useCreateIndex', true); // Had to remove this - depricated
+mongoose.set('useCreateIndex', true);
 
 //user schema
 var UserSchema = new Schema({
@@ -23,14 +24,14 @@ var UserSchema = new Schema({
 UserSchema.pre('save', function(next) {
     var user = this;
 
-    //hash PW
+    //hash the password
     if (!user.isModified('password')) return next();
 
     bcrypt.hash(user.password, null, null, function(err, hash) {
         if (err) return next(err);
 
-
-        user.password = hash; //change password
+        //change the password
+        user.password = hash;
         next();
     });
 });
@@ -43,5 +44,5 @@ UserSchema.methods.comparePassword = function (password, callback) {
     })
 }
 
-
+//return the model to server
 module.exports = mongoose.model('User', UserSchema);
