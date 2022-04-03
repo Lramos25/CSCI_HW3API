@@ -109,7 +109,7 @@ router.route('/movies')
             }
             if (movies.length < 1)
             {
-                res.json({success: false, message: 'No movies found.'});
+                res.json({success: false, message: 'There are no movies available.'});
             }
             else
             {
@@ -125,28 +125,30 @@ router.route('/movies')
         const genres =
             ["Action",
                 "Adventure",
+                "Anime",
                 "Comedy",
                 "Drama",
                 "Fantasy",
                 "Horror",
                 "Mystery",
+                "Suspense",
                 "Thriller"];
         if(!req.body.title){res.json({success: false, message: "Title Missing, Please add the Title of the Movie"});}
         else if (!req.body.genre)
         {
-            res.json({success: false, message: 'Genre Missing, Please add Genre of the Movie.'})
+            res.json({success: false, message: 'Title Missing.'})
         }
         else if (!genres.includes(req.body.genre))
         {
-            res.json({success: false, message: "Genre Missing, Please add Genre of the Movie.", accepted_genres: genres})
+            res.json({success: false, message: "Genre Missing.", accepted_genres: genres})
         }
-        else if (req.body.yearReleased.length < 4)
+        else if (!req.body.yearReleased)
         {
-            res.json({success: false, message: 'Release Year Missing, Please add the Release Year of the Movie or Please add 4 digits for Release Year.'})
+            res.json({success: false, message: 'Inculed year as YYYY.'})
         }
         else if (req.body.actors.length < 3)
         {
-            res.json({success: false, message: 'Actors Missing, Please add at least 3 actors of the Movie.'})
+            res.json({success: false, message: 'Actors Missing must list at least 3 actors of the Movie.'})
         }
         else {
             let movieNew = new Movie();
@@ -164,11 +166,11 @@ router.route('/movies')
             {
                 if (err) {
                     if (err.code === 11000)
-                        return res.json({success: false, message: 'This Movie already exists.'});
+                        return res.json({success: false, message: 'Movie already exists.'});
                     else
                         return res.json(err);
                 } else {
-                    var o = getJSONObjectForMovieRequirement(req, 'Movie has been saved');
+                    var o = getJSONObjectForMovieRequirement(req, 'Movie saved');
                     res.json(o)
                 }
             });
@@ -176,7 +178,7 @@ router.route('/movies')
     })
 
 
-
+//idea from Ayan Tuladhar
 router.route('/movies/:title')
     .get(authJwtController.isAuthenticated, function (req, res)
     {
@@ -212,7 +214,7 @@ router.route('/movies/:title')
             console.log(movie);
             if (movie.length < 1)
             {
-                res.json({success: false, message: 'The Movie Title you entered could not be found.'});
+                res.json({success: false, message: 'Movie Title not found.'});
             } else
             {
                 Movie.deleteOne({title: req.params.title}).exec(function (err)
@@ -222,7 +224,7 @@ router.route('/movies/:title')
                         res.send(err);
                     } else
                     {
-                        var o = getJSONObjectForMovieRequirement(req, 'Movie has been deleted');
+                        var o = getJSONObjectForMovieRequirement(req, 'Movie deleted');
                         res.json(o);
                     }
                 })
@@ -249,7 +251,7 @@ router.route('/movies/:title')
                     res.send(err);
                 }
             })
-        var o = getJSONObjectForMovieRequirement(req, 'Movie has been updated');
+        var o = getJSONObjectForMovieRequirement(req, 'Movie updated');
         res.json(o);
     });
 
@@ -257,5 +259,3 @@ router.route('/movies/:title')
 app.use('/', router);
 app.listen(process.env.PORT || 8080);
 module.exports = app; // for testing only
-
-
